@@ -1,1 +1,1 @@
-# ProgettoSC20
+# Progetto Social Computing 2020

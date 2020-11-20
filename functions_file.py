@@ -1,7 +1,3 @@
-import os
-import json
-import pprint
-
 def serialize_json(folder, filename, data):
   if not os.path.exists(folder):
     os.makedirs(folder, exist_ok=True)
@@ -49,3 +45,19 @@ def download_following(user, quantity):
         json_data = friend._json
         friends_of_user.append(friend._json["id"])
   return friends_of_user
+
+def random_json_with_control(json_array, quantity, all):
+    a = quantity
+    array = []
+    while(a!=0):
+        item = random.choice(json_array)
+        if item not in array and item not in all:
+            array.append(item)
+            a = a-1
+    return array
+    
+def is_following(sourceid,targetid, api):
+    friendship = api.show_friendship(source_screen_name=sourceid, target_screen_name=targetid)
+    if friendship[0].following:
+        return True
+    return False

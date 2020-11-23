@@ -4,6 +4,7 @@ import tweepy
 import random
 import numpy as np
 
+
 class Functions:
 
     def usersID(users, api):
@@ -34,7 +35,7 @@ class Functions:
             print(f"No data found at path: {path}")
             return {}
 
-    def download_followers(idUser, quantity,api):
+    def download_followers(idUser, quantity, api):
         followers_of_user = []
         for follower in tweepy.Cursor(
                 api.followers,
@@ -45,7 +46,7 @@ class Functions:
             followers_of_user.append(follower._json["id"])
         return followers_of_user
 
-    def download_following(idUser, quantity,api):
+    def download_following(idUser, quantity, api):
         friends_of_user = []
         for friend in tweepy.Cursor(
                 api.friends,
@@ -101,12 +102,27 @@ class Functions:
             return True
         return False
 
-    def converterNumber(allCent,n_nodes):
+    def converterNumber(allCent, n_nodes):
         allCent1 = np.empty((0, n_nodes), int)  #
-        res = []# TROVARE FUNZIONA PER CAPIRE IL NUMERO DI NODI E INSERIRE AL POSTO DI 6
+        res = []  # TROVARE FUNZIONA PER CAPIRE IL NUMERO DI NODI E INSERIRE AL POSTO DI 6
         for cent in allCent:
             res.clear()
             for (k, v) in cent.items():
                 res.append(v)
             allCent1 = np.append(allCent1, np.array([res]), axis=0)
         return allCent1
+
+    def json_items_to_dict(file_names):
+        allItems = {}
+        for file in file_names:
+            allItems.update(Functions.read_json(file))
+        return allItems
+
+
+    def deleteDuplicates(allItems):
+        vector = []
+        for (k, v) in allItems.items():
+            for item in v:
+                if item not in vector:
+                    vector.append(item)
+        return vector

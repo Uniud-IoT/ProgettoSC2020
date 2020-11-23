@@ -2,6 +2,7 @@ import os
 import json
 import tweepy
 import random
+import numpy as np
 
 class Functions:
 
@@ -11,6 +12,10 @@ class Functions:
             json_data = api.get_user(user)._json
             usersID.append(json_data["id"])
         return usersID
+
+    def userID(user, api):
+        json_data = api.get_user(user)._json
+        return json_data["id"]
 
     def serialize_json(folder, filename, data):
         if not os.path.exists(folder):
@@ -95,3 +100,13 @@ class Functions:
         if friendship[0].following:
             return True
         return False
+
+    def converterNumber(allCent,n_nodes):
+        allCent1 = np.empty((0, n_nodes), int)  #
+        res = []# TROVARE FUNZIONA PER CAPIRE IL NUMERO DI NODI E INSERIRE AL POSTO DI 6
+        for cent in allCent:
+            res.clear()
+            for (k, v) in cent.items():
+                res.append(v)
+            allCent1 = np.append(allCent1, np.array([res]), axis=0)
+        return allCent1

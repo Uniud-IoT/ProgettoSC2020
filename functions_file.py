@@ -57,12 +57,12 @@ class Functions:
             friends_of_user.append(friend._json["id"])
         return friends_of_user
 
-    def random_json_with_control(json_array, quantity, all):
+    def random_json_with_control(json_array, quantity):
         a = quantity
         array = []
         while (a != 0):
             item = random.choice(json_array)
-            if item not in array and item not in all:
+            if item not in array:
                 array.append(item)
                 a = a - 1
         return array

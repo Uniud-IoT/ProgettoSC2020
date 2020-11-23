@@ -63,13 +63,14 @@ class Functions:
 
     def downlodUserDetails(userId, api):
         json_data = api.get_user(userId)._json
-        foundInfo = {}
-        foundInfo['id'] = json_data['id']
-        foundInfo['name'] = json_data['name']
-        foundInfo['screen_name'] = json_data['screen_name']
-        foundInfo['location'] = json_data['location']
-        foundInfo['followers_count'] = json_data['followers_count']
-        foundInfo['friends_count'] = json_data['friends_count']
+        foundInfo = {
+            'id': json_data['id'],
+            'name': json_data['name'],
+            'screen_name': json_data['screen_name'],
+            'location': json_data['location'],
+            'followers_count': json_data['followers_count'],
+            'friends_count': json_data['friends_count']
+        }
         return foundInfo
 
     def friendship(sourceid, targetid, api):

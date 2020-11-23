@@ -112,17 +112,18 @@ class Functions:
             allCent1 = np.append(allCent1, np.array([res]), axis=0)
         return allCent1
 
-    def json_items_to_dict(file_names):
-        allItems = {}
+    def mergeFiles(file_names):
+        allItems = []
         for file in file_names:
-            allItems.update(Functions.read_json(file))
+            jsonData = Functions.read_json(file)
+            for (key, value) in jsonData.items():
+                for item in value:
+                    allItems.append(item)
         return allItems
-
 
     def deleteDuplicates(allItems):
         vector = []
-        for (k, v) in allItems.items():
-            for item in v:
-                if item not in vector:
-                    vector.append(item)
+        for item in allItems:
+            if item not in vector:
+                vector.append(item)
         return vector

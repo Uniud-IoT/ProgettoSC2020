@@ -67,7 +67,7 @@ class Functions:
                 a = a - 1
         return array
 
-    def downlodUserDetails(userId, api):
+    def downloadUserDetails(userId, api):
         json_data = api.get_user(userId)._json
         foundInfo = {
             'id': json_data['id'],
@@ -80,21 +80,29 @@ class Functions:
         return foundInfo
 
     def friendship(sourceid, targetid, api):
-        friendship = api.show_friendship(source_id=sourceid, target_id=targetid)
-        if friendship[0].following & friendship[0].followed_by:
-            return "both"
-        else:
-            if friendship[0].following:
-                return "sourceToTarget"
-            if friendship[0].following:
-                return "TargetToSource"
-        return None
+        try:
+            friendship = api.show_friendship(source_id=sourceid, target_id=targetid)
+            if friendship[0].following & friendship[0].followed_by:
+                return "both"
+            else:
+                if friendship[0].following:
+                    return "sourceToTarget"
+                if friendship[0].following:
+                    return "TargetToSource"
+            return None
+        except tweepy.error.TweepError:
+            print(sourceid)
+            print(targetid)
+            return None
 
-    def searchInDict(source, target, dictionary):
+    # ritorna true se ancora non c'è una coppia source target nel dizionario
+    def noCoupleInDict(source, target, dictionary):
         for (k, v) in dictionary.items():
             if (source == v['target'] and target == v['source']):
-                return True
-        return False
+                return False
+            if (source == v['source'] and target == v['target']):
+                return False
+        return True
 
     def is_following(sourceid, targetid, api):
         friendship = api.show_friendship(source_screen_name=sourceid, target_screen_name=targetid)
